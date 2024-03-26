@@ -1,6 +1,6 @@
 import { useMemberStore } from '@/stores'
 
-const baseURL = 'https://pcapi-xiaotuxian-front-devtest.itheima.net'
+const baseURL = ''
 
 const httpInterceptor = {
   invoke(options: UniApp.RequestOptions) {

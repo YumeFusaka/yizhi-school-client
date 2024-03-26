@@ -46,6 +46,17 @@
             "sdkConfigs" : {}
         }
     },
+    /* 网页端特有相关 */
+    "h5" : {
+        "router" : {
+            "base" : "",
+            "mode" : "hash"
+        },
+        "devServer" : {
+            "port" : 8080
+        },
+        "usingComponents" : true
+    },
     /* 快应用特有相关 */
     "quickapp" : {},
     /* 小程序特有相关 */
@@ -65,8 +76,8 @@
     "mp-toutiao" : {
         "usingComponents" : true
     },
-    "uniStatistics": {  
-        "enable": false
+    "uniStatistics" : {
+        "enable" : false
     },
     "vueVersion" : "3"
 }
