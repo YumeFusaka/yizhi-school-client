@@ -1,8 +1,13 @@
 <script lang="ts" setup>
-import classLog from '@/pages/manage/components/class-log.vue'
-import notification from '@/pages/manage/components/notification.vue'
+import ClassLog from '@/pages/manage/components/ClassLog.vue'
+import Notification from '@/pages/manage/components/Notification.vue'
 import { ref } from 'vue'
-const nowTitle = ref<string>('信息通知')
+const title = [
+  '信息通知',
+  '班务日志'
+]
+
+const nowTitle = ref<string>(title[0])
 </script>
 
 <template>
@@ -20,10 +25,10 @@ const nowTitle = ref<string>('信息通知')
   
   
   <view v-if="nowTitle === '信息通知'">
-    <classLog/>
+    <ClassLog/>
   </view>
   <view v-else>
-    <notification/>
+    <Notification/>
   </view>
 </template>
 

@@ -11,30 +11,30 @@ const title = ref('')
 	</uni-card>
 
   <view class="my-grid">
-    <view class="grid-item-box"  style="background-color: #FFFFCC;">
-        <image src="@/static/home/个人.png" mode="aspectFit" style="width: 50px;height: 50px;"></image>
+    <navigator url="/pages/personal/personal" open-type="switchTab" class="grid-item-box"  style="background-color: #FFFFCC;">
+        <image src="@/static/home/个人.png" mode="aspectFit" style="width: 40px;height: 40px;"></image>
         <text class="text">个人资料</text>
-    </view>
-    <view class="grid-item-box" style="background-color: #CCFFFF;">
-      <image src="@/static/home/成绩.png" mode="aspectFit" style="width: 50px;height: 50px;"></image>
+    </navigator>
+    <navigator url="/pages/school/school" open-type="switchTab" class="grid-item-box" style="background-color: #CCFFFF;">
+      <image src="@/static/home/成绩.png" mode="aspectFit" style="width: 40px;height: 40px;"></image>
       <text class="text">成绩查询</text>
-    </view>
-    <view class="grid-item-box" style="background-color: #CCFFE5;">
-      <image src="@/static/home/通知.png" mode="aspectFit" style="width: 50px;height: 50px;"></image>
+    </navigator>
+    <navigator url="/pages/manage/manage" open-type="switchTab" class="grid-item-box" style="background-color: #CCFFE5;">
+      <image src="@/static/home/通知.png" mode="aspectFit" style="width: 40px;height: 40px;"></image>
       <text class="text">信息通知</text>
-    </view>
-    <view class="grid-item-box" style="background-color: #FFCCFF;">
-      <image src="@/static/home/日志.png" mode="aspectFit" style="width: 50px;height: 50px;"></image>
+    </navigator>
+    <navigator url="/pages/manage/manage" open-type="switchTab" class="grid-item-box" style="background-color: #FFCCFF;">
+      <image src="@/static/home/日志.png" mode="aspectFit" style="width: 40px;height: 40px;"></image>
       <text class="text">班务日志</text>
-    </view>
-    <view class="grid-item-box" style="background-color: #FFCCCC;">
-      <image src="@/static/home/评奖.png" mode="aspectFit" style="width: 50px;height: 50px;"></image>
+    </navigator>
+    <navigator url="/pages/election/election" class="grid-item-box" style="background-color: #FFCCCC;">
+      <image src="@/static/home/评奖.png" mode="aspectFit" style="width: 40px;height: 40px;"></image>
       <text class="text">评优评奖</text>
-    </view>
-    <view class="grid-item-box" style="background-color: #CCCCFF;">
-      <image src="@/static/home/档案.png" mode="aspectFit" style="width: 50px;height: 50px;"></image>
+    </navigator>
+    <navigator url="/pages/file/file" class="grid-item-box" style="background-color: #CCCCFF;">
+      <image src="@/static/home/档案.png" mode="aspectFit" style="width: 40px;height: 40px;"></image>
       <text class="text">学生档案</text>
-    </view>
+    </navigator>
   </view>
 
 
@@ -62,7 +62,7 @@ const title = ref('')
 .my-grid{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-auto-rows: 80px;
+  grid-auto-rows: 90px;
   margin-left: 18px;
   margin-right:18px;
 }
@@ -70,10 +70,8 @@ const title = ref('')
 
 .grid-item-box {
   flex: 1;
-  // position: relative;
-  
+  // position: relative
   display: flex;
-  
   flex-direction: column;
   align-items: center;
   justify-content: center;

@@ -39,6 +39,24 @@
 				"navigationBarTitleText": "个人中心",
 				"navigationBarTextStyle": "white"
 			}
+		},
+		{
+			"path": "pages/election/election",
+			"style": {
+				"navigationBarTitleText": "评优评奖"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录页面"
+			}
+		},
+		{
+			"path": "pages/file/file",
+			"style": {
+				"navigationBarTitleText": "学生档案"
+			}
 		}
 	],
 	"tabBar": {
@@ -75,7 +93,7 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"condition" : { //模式配置，仅开发期间生效
+	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)
 		"list": [
 			{
