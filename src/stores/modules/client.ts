@@ -2,11 +2,23 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 // 定义 Store
-export const useMemberStore = defineStore(
-  'member',
+export const useClientStore = defineStore(
+  'client',
   () => {
-    // 记得 return
+    const token = ref()
+
+    const setToken = (val:string)=>{
+      token.value = val
+    }
+
+    const clearToken = ()=>{
+      token.value = undefined
+    }
+    
     return {
+      token,
+      setToken,
+      clearToken
     }
   },
   // TODO: 持久化

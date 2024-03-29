@@ -43,19 +43,25 @@
 		{
 			"path": "pages/election/election",
 			"style": {
-				"navigationBarTitleText": "评优评奖"
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "评优评奖",
+				"navigationBarTextStyle": "white"
 			}
 		},
 		{
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "登录页面"
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "登录页面",
+				"navigationBarTextStyle": "white"
 			}
 		},
 		{
 			"path": "pages/file/file",
 			"style": {
-				"navigationBarTitleText": "学生档案"
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "学生档案",
+				"navigationBarTextStyle": "white"
 			}
 		}
 	],

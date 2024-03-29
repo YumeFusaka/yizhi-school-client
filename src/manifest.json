@@ -53,7 +53,7 @@
             "mode" : "hash"
         },
         "devServer" : {
-            "port" : 8080
+            "port" : 5173
         },
         "usingComponents" : true
     },

@@ -22,7 +22,7 @@ const nowTitle = ref<string>(title[0])
       </button>
     </view>
   </view>
-  
+    
   
   <view v-if="nowTitle === '信息通知'">
     <ClassLog/>

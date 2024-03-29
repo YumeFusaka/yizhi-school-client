@@ -1,6 +1,6 @@
-import { useMemberStore } from '@/stores'
+import { useClientStore } from '@/stores'
 
-const baseURL = ''
+const baseURL = 'http://localhost:8080'
 
 const httpInterceptor = {
   invoke(options: UniApp.RequestOptions) {
@@ -8,21 +8,22 @@ const httpInterceptor = {
       options.url = baseURL + options.url
     }
     options.timeout = 10000
-    const memberStore = useMemberStore()
-    const token = ''  // TODO: 将token存入变量
+    const clientStore = useClientStore()
+    const token = clientStore.token // TODO: 将token存入变量
     if (token) {
-      options.header.Authorization = token
+      options.header.token = token
     }
     console.log(options)
   },
 }
+
 uni.addInterceptor('request', httpInterceptor)
 uni.addInterceptor('uploadFile', httpInterceptor)
 
 interface Data<T> {
   code: string
   msg: string
-  result: T
+  data: T
 }
 export const http = <T>(options: UniApp.RequestOptions) => {
   return new Promise<Data<T>>((resolve, reject) => {
@@ -32,8 +33,8 @@ export const http = <T>(options: UniApp.RequestOptions) => {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           resolve(res.data as Data<T>)
         } else if (res.statusCode === 401) {
-          const memberStore = useMemberStore()
-          // TODO: 清除token 
+          const clientStore = useClientStore()
+          clientStore.clearToken()
           uni.navigateTo({ url: '/pages/login/login' })
           reject(res)
         } else {

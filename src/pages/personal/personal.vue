@@ -1,5 +1,10 @@
 <script lang="ts" setup>
 import {ref} from "vue"
+const login=()=>{
+  uni.navigateTo({
+    url: '/pages/login/login'
+  })
+}
 </script>
 
 <template>
@@ -33,7 +38,8 @@ import {ref} from "vue"
     </uni-list>
   </view>
 
-  <button type="warn" class="quit">退出登录</button>
+  <button type="primary" class="quit" @click="login">登录</button>
+  <button type="warn" class="quit">注销</button>
 </template>
 
 <style lang="scss" scoped>
