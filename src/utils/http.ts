@@ -10,10 +10,14 @@ const httpInterceptor = {
     options.timeout = 10000
     const clientStore = useClientStore()
     const token = clientStore.token // TODO: 将token存入变量
-    if (token) {
-      options.header.token = token
-    }
+    console.log(token)
     console.log(options)
+    if(token){
+      options.header = {
+        ...options.header,
+        token: token
+      }
+    }
   },
 }
 
@@ -30,9 +34,10 @@ export const http = <T>(options: UniApp.RequestOptions) => {
     uni.request({
       ...options,
       success(res) {
+        console.log(res)
         if (res.statusCode >= 200 && res.statusCode < 300) {
           resolve(res.data as Data<T>)
-        } else if (res.statusCode === 401) {
+        } else if (res.statusCode == 401) {
           const clientStore = useClientStore()
           clientStore.clearToken()
           uni.navigateTo({ url: '/pages/login/login' })

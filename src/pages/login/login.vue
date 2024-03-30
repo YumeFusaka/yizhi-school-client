@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { studentLogin } from '@/services/student/login';
+import { studentLoginAPI } from '@/services/student/login';
 import { useClientStore } from '@/stores';
-import type { LoginRequest } from '@/types/student/login';
+import type { LoginRequest } from '@/types/student/Login';
 const valiForm = ref<UniHelper.UniForms>()
 const valiFormData = ref({
   account: '2022117316',
@@ -44,23 +44,27 @@ const rules = ref({
 	}
 } as UniHelper.UniFormsRules)
 
+const studentLogin = async ()=>{
+  const param = { 
+      account:valiFormData.value.account,
+      password:valiFormData.value.password} as LoginRequest
+    const res = await studentLoginAPI(param)
+    console.log(res)
+    const clientStore = useClientStore()
+    if(clientStore.token != null)
+      clientStore.clearToken()
+    clientStore.setToken(res.data.token)
+}
+
 const login = async ()=>{
   await valiForm.value!.validate()
   if(valiFormData.value.identity==='学生'){
-    const param = { 
-      account:valiFormData.value.account,
-      password:valiFormData.value.password} as LoginRequest
-    const res = await studentLogin(param)
-    console.log(res)
-    const clientStore = useClientStore()
-    clientStore.setToken(res.data.token)
-    uni.showToast({ icon: 'none', title: '登录成功' })
+    await studentLogin()
+  }
+  uni.showToast({ icon: 'none', title: '登录成功' })
     setTimeout(() => {
       uni.navigateBack()
     }, 500)
-    console.log(res.data)
-  }
-  
 }
 </script>
 
@@ -95,3 +99,4 @@ const login = async ()=>{
   background-color: white;
 }
 </style>
+@/types/student/Login

@@ -1,40 +1,56 @@
 <script lang="ts" setup>
 import {ref} from "vue"
+import { onShow } from "@dcloudio/uni-app";
+import type {StudentProfile} from "@/types/student/Profile"
+import {getStudentProfileAPI} from "@/services/student/profile"
+import { useClientStore } from "@/stores";
 const login=()=>{
   uni.navigateTo({
     url: '/pages/login/login'
   })
 }
+const studentData=ref<StudentProfile>()
+
+const getStudentProfile = async()=>{
+  const res = await getStudentProfileAPI()
+  console.log(res)
+  studentData.value = res.data
+  console.log(studentData.value)
+}
+
+onShow(()=>{
+  getStudentProfile()
+})
 </script>
 
 <template>
   <view class="head">
-    <image src="@/static/thumbnail.jpg" class="thumbnail" mode="aspectFill"></image>
+    <image :src="studentData?.avatar || `../../static/thumbnail.jpg`" class="thumbnail" mode="aspectFill"></image>
     <view class="headInfo">
-      <view style="grid-area: 1/1/span 1/span 1;align-self: center;justify-self:start;margin-top:16px">姓名: 梦浮羽</view>
-      <view style="grid-area: 2/1/span 1/span 1;align-self: start;justify-self:start;">学号: 2022117316</view>  
+      <view style="grid-area: 1/1/span 1/span 1;align-self: center;justify-self:start;margin-top:16px">姓名: {{ studentData?.name }}</view>
+      <view style="grid-area: 2/1/span 1/span 1;align-self: start;justify-self:start;">学号: {{studentData?.student_id}}</view>  
     </view>
   </view>
 
   <view class="baseInfo">
     <uni-list :border="true">
       <uni-list-item title="基本信息"></uni-list-item>
-      <uni-list-item title="性别" right-text="男"></uni-list-item>
-      <uni-list-item title="年龄" right-text="20" ></uni-list-item>
-      <uni-list-item title="电话" right-text="19353303242"></uni-list-item> 
-      <uni-list-item title="出生日期" right-text="2004-04-14" ></uni-list-item>
-      <uni-list-item title="身份证号码" right-text="421126200404140013"></uni-list-item> 
+      <uni-list-item title="性别" :right-text="studentData?.sex"></uni-list-item>
+      <uni-list-item title="年龄" :right-text="studentData?.age" ></uni-list-item>
+      <uni-list-item title="电话" :right-text="studentData?.phone"></uni-list-item> 
+      <uni-list-item title="出生日期" :right-text="studentData?.birth" ></uni-list-item>
+      <uni-list-item title="身份证号码" :right-text="studentData?.id_number"></uni-list-item> 
     </uni-list>
   </view>
 
   <view class="otherInfo">
     <uni-list :border="true">
       <uni-list-item title="其他信息" style=""></uni-list-item>
-      <uni-list-item title="政治面貌" right-text="群众"></uni-list-item>
-      <uni-list-item title="故乡" right-text="湖北省黄冈市"></uni-list-item>
-      <uni-list-item title="学院" right-text="计算机工程学院"></uni-list-item>
-      <uni-list-item title="班级" right-text="2211班"></uni-list-item>
-      <uni-list-item title="专业" right-text="计算机科学与技术"></uni-list-item>
+      <uni-list-item title="政治面貌" :right-text="studentData?.political"></uni-list-item>
+      <uni-list-item title="故乡" :right-text="studentData?.hometown"></uni-list-item>
+      <uni-list-item title="学院" :right-text="studentData?.department"></uni-list-item>
+      <uni-list-item title="班级" :right-text="studentData?.classes"></uni-list-item>
+      <uni-list-item title="专业" :right-text="studentData?.major"></uni-list-item>
     </uni-list>
   </view>
 

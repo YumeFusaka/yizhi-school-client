@@ -1,7 +1,7 @@
-import type { LoginRequest, LoginResult } from "@/types/student/login";
+import type { LoginRequest, LoginResult } from "@/types/student/Login";
 import { http } from "@/utils/http";
 
-export const studentLogin = (data: LoginRequest) => {
+export const studentLoginAPI = (data: LoginRequest) => {
   return http<LoginResult>({
     method: 'POST',
     url: '/student/login',
