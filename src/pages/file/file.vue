@@ -34,7 +34,7 @@ const back = ()=>{
         <view class="title">处罚原因</view>
         <view class="title">处罚结果</view>
         <view>2024/03/27</view>
-        <view>上课鹿管</view>
+        <view>上课玩手机</view>
         <view>休学1星期</view>
       </view>
     </view>

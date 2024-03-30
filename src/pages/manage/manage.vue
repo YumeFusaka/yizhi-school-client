@@ -2,12 +2,19 @@
 import ClassLog from '@/pages/manage/components/ClassLog.vue'
 import Notification from '@/pages/manage/components/Notification.vue'
 import { ref } from 'vue'
+import { useInfoStore } from '@/stores';
+import { onShow } from '@dcloudio/uni-app';
+const infoStore = useInfoStore()
 const title = [
   '信息通知',
   '班务日志'
 ]
 
-const nowTitle = ref<string>(title[0])
+const nowTitle = ref<string>(title[infoStore.info])
+onShow(()=>{
+  if(nowTitle.value != title[infoStore.info])
+    nowTitle.value = title[infoStore.info]
+})
 </script>
 
 <template>

@@ -62,9 +62,11 @@ const login = async ()=>{
     await studentLogin()
   }
   uni.showToast({ icon: 'none', title: '登录成功' })
-    setTimeout(() => {
-      uni.navigateBack()
-    }, 500)
+  setTimeout(() => {
+    uni.navigateBack({
+      delta:1,
+    })
+  }, 500)
 }
 </script>
 

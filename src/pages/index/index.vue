@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-const title = ref('')
+import {useInfoStore} from '@/stores'
+const infoStore = useInfoStore()
 
 </script>
 
@@ -19,11 +20,11 @@ const title = ref('')
       <image src="@/static/home/成绩.png" mode="aspectFit" style="width: 40px;height: 40px;"></image>
       <text class="text">成绩查询</text>
     </navigator>
-    <navigator url="/pages/manage/manage" open-type="switchTab" class="grid-item-box" style="background-color: #CCFFE5;">
+    <navigator url="/pages/manage/manage" @click="infoStore.changeInfo(0)" open-type="switchTab" class="grid-item-box" style="background-color: #CCFFE5;">
       <image src="@/static/home/通知.png" mode="aspectFit" style="width: 40px;height: 40px;"></image>
       <text class="text">信息通知</text>
     </navigator>
-    <navigator url="/pages/manage/manage" open-type="switchTab" class="grid-item-box" style="background-color: #FFCCFF;">
+    <navigator url="/pages/manage/manage" @click="infoStore.changeInfo(1)" open-type="switchTab" class="grid-item-box" style="background-color: #FFCCFF;">
       <image src="@/static/home/日志.png" mode="aspectFit" style="width: 40px;height: 40px;"></image>
       <text class="text">班务日志</text>
     </navigator>

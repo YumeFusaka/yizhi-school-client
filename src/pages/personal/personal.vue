@@ -9,6 +9,12 @@ const login=()=>{
     url: '/pages/login/login'
   })
 }
+const quit=()=>{
+  const clientStore= useClientStore()
+  clientStore.clearToken()
+  uni.reLaunch({ url: '/pages/personal/personal' })
+}
+
 const studentData=ref<StudentProfile>()
 
 const getStudentProfile = async()=>{
@@ -18,8 +24,11 @@ const getStudentProfile = async()=>{
   console.log(studentData.value)
 }
 
+
 onShow(()=>{
-  getStudentProfile()
+  if(studentData.value===undefined){
+    getStudentProfile()
+  }
 })
 </script>
 
@@ -55,7 +64,7 @@ onShow(()=>{
   </view>
 
   <button type="primary" class="quit" @click="login">登录</button>
-  <button type="warn" class="quit">注销</button>
+  <button type="warn" class="quit" @click="quit">注销</button>
 </template>
 
 <style lang="scss" scoped>
