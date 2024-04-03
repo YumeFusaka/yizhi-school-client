@@ -7,6 +7,12 @@ export const useClientStore = defineStore(
   () => {
     const token = ref()
 
+    const identity = ref(0)
+
+    const setIdentity = (val:number)=>{
+      identity.value = val
+    }
+
     const setToken = (val:string)=>{
       token.value = val
     }
@@ -14,11 +20,18 @@ export const useClientStore = defineStore(
     const clearToken = ()=>{
       token.value = undefined
     }
+
+    const clearIdentity = ()=>{
+      identity.value = 0
+    }
     
     return {
       token,
       setToken,
-      clearToken
+      clearToken,
+      identity,
+      setIdentity,
+      clearIdentity
     }
   },
   // TODO: 持久化

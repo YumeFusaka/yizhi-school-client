@@ -3,11 +3,12 @@ import { ref } from 'vue';
 import { studentLoginAPI } from '@/services/student/login';
 import { useClientStore } from '@/stores';
 import type { LoginRequest } from '@/types/student/Login';
+import {teacherLoginAPI} from '@/services/teacher/login'
 const valiForm = ref<UniHelper.UniForms>()
 const valiFormData = ref({
   account: '2022117316',
 	password: 'j',
-  identity: '学生'
+  identity: ''
 })
 
 const identity = ref([
@@ -41,25 +42,61 @@ const rules = ref({
         errorMessage: '密码不能为空'
 			}
     ]
-	}
+	},
+  identity:{
+    rules: [
+      {
+        required: true,
+        errorMessage: '身份不能为空'
+      }
+    ]
+  }
 } as UniHelper.UniFormsRules)
 
 const studentLogin = async ()=>{
   const param = { 
       account:valiFormData.value.account,
       password:valiFormData.value.password} as LoginRequest
+    console.log(param)
     const res = await studentLoginAPI(param)
     console.log(res)
     const clientStore = useClientStore()
     if(clientStore.token != null)
       clientStore.clearToken()
+    if(res.data?.token == null){
+      uni.showToast({ icon: 'error', title: '账号或者密码错误' })
+      throw console.error('账号或者密码错误');
+    }
     clientStore.setToken(res.data.token)
+}
+
+const teacherLogin = async ()=>{
+  const param = { 
+      account:valiFormData.value.account,
+      password:valiFormData.value.password} as LoginRequest
+    console.log(param)
+    const res = await teacherLoginAPI(param)
+    console.log(res)
+    const clientStore = useClientStore()
+    if(clientStore.token != null){
+      clientStore.clearToken()
+      clientStore.clearIdentity()
+    }
+    if(res.data?.token == null){
+      uni.showToast({ icon: 'error', title: '账号或者密码错误' })
+      throw console.error('账号或者密码错误');
+    }
+    clientStore.setToken(res.data.token)
+    clientStore.setIdentity(1)
 }
 
 const login = async ()=>{
   await valiForm.value!.validate()
   if(valiFormData.value.identity==='学生'){
     await studentLogin()
+  }
+  else if(valiFormData.value.identity==='教师'){
+    await teacherLogin()
   }
   uni.showToast({ icon: 'none', title: '登录成功' })
   setTimeout(() => {
@@ -84,7 +121,7 @@ const login = async ()=>{
     <uni-forms-item label="密码" name="password">
       <uni-easyinput :clearable="false" type="password" v-model="valiFormData.password" placeholder="请输入密码" />
     </uni-forms-item>
-    <uni-forms-item label="身份">
+    <uni-forms-item label="身份" name="identity">
 			<uni-data-checkbox style="padding-top: 5px;" v-model="valiFormData.identity" :localdata="identity" />
 		</uni-forms-item>
   </uni-forms>

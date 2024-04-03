@@ -6,6 +6,7 @@ import type { ClassLog } from '@/types/student/ClassLog';
 const popup = ref<UniHelper.UniPopupInstance>()
 const contentNow = ref<string>("")
 const classLog= ref<ClassLog[]>()
+const selectNow = ref<number>(1)
 
 const studentClassLog = async()=>{
   const res = await studentClassLogAPI()
@@ -34,13 +35,13 @@ onShow(()=>{
       <view class="index">标题</view>
       <view class="time">时间</view>
     </view>
-    <view v-for="item in classLog" :key="item.title" class="TextContain">
+    <view v-for="item in classLog?.slice(selectNow*10-10,selectNow*10)" :key="item.title" class="TextContain">
         <view class="index">{{ item.author }}</view>
         <view class="title" @click="contentNow=item.content;popup?.open?.();">{{ item.title }}</view>
         <view class="time">{{ item.time }}</view>
     </view>
 
-    <uni-pagination style="margin: 0px 10px 5px;" title="标题文字" :total="50" :current="2"></uni-pagination>
+    <uni-pagination style="margin: 0px 10px 5px;" title="标题文字" :total="classLog?.length" :page-size="10" :current="selectNow"></uni-pagination>
   </view>
 
 
