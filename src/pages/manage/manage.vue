@@ -32,10 +32,10 @@ onShow(()=>{
     
   
   <view v-if="nowTitle === '信息通知'">
-    <ClassLog/>
+    <Notification/>
   </view>
   <view v-else>
-    <Notification/>
+    <ClassLog/>
   </view>
 </template>
 

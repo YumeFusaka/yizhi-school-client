@@ -1,7 +1,26 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+import {getStudentFileAPI} from '@/services/student/file'
+import { onShow } from '@dcloudio/uni-app';
+import type { StudentFile } from '@/types/student/file';
 const back = ()=>{
   uni.navigateBack({delta:1})
 }
+
+const acquireList = ref<StudentFile[]>()
+const punishList = ref<StudentFile[]>()
+
+const getStudentFile = async()=>{
+  const res = await getStudentFileAPI()
+  console.log(res)
+  acquireList.value = res.data.filter((item:StudentFile)=>item.rap===0)
+  punishList.value = res.data.filter((item:StudentFile)=>item.rap===1)
+}
+
+onShow(()=>{
+  if(acquireList.value===undefined && punishList.value===undefined)
+    getStudentFile()
+})
 </script>
 
 
@@ -16,14 +35,11 @@ const back = ()=>{
         <view class="title">获奖时间</view>
         <view class="title">获奖名称</view>
         <view class="title">获奖等级</view>
-
-        <view>2024/03/27</view>
-        <view style="text-align: center;">第十四届蓝桥杯程序设计大赛</view>
-        <view>全国一等奖</view>
-
-        <view>2024/03/27</view>
-        <view style="text-align: center;">ACM ICPC 亚洲区域赛</view>
-        <view>金牌</view> 
+      </view>
+      <view class="list" style="padding-top: 8px;" v-for="(item,index) in acquireList" :key="index">
+        <view>{{ item.time }}</view>
+        <view style="text-align: center;">{{item.content}}</view>
+        <view style="text-align: center;">{{item.result}}</view>
       </view>
     </view>
     
@@ -33,9 +49,11 @@ const back = ()=>{
         <view class="title">处罚时间</view>
         <view class="title">处罚原因</view>
         <view class="title">处罚结果</view>
-        <view>2024/03/27</view>
-        <view>上课玩手机</view>
-        <view>休学1星期</view>
+      </view>
+      <view class="list" style="padding-top: 8px;" v-for="(item,index) in punishList" :key="index">
+        <view>{{item.time}}</view>
+        <view style="text-align: center;">{{item.content}}</view>
+        <view style="text-align: center;">{{item.result}}</view>
       </view>
     </view>
     <view style="padding-bottom: 10px;"></view>
@@ -62,17 +80,15 @@ const back = ()=>{
   grid-template-columns: 1fr;
   grid-auto-rows: auto;
   margin-top: 10px;
-
 }
 
 .list{
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  grid-auto-rows:auto;
+  grid-auto-rows: minmax(30px, auto);
   background-color: white;
   justify-items: center;
   align-items: center;
-  row-gap:10px
 }
 
 
